@@ -141,12 +141,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\vendor\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\absGL\absGL.vcxproj">
       <Project>{CEF8110F-3A0D-3AC0-038F-DD1F6F6236F1}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\frag\f_default.glsl" />
+    <None Include="src\shaders\vert\v_default.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

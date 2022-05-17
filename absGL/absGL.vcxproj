@@ -152,16 +152,18 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\absGL\Shader.h" />
     <ClInclude Include="src\AbsGL.h" />
-    <ClInclude Include="src\Core.h" />
-    <ClInclude Include="src\InputHandler.h" />
-    <ClInclude Include="src\Model.h" />
-    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\absGL\Core.h" />
+    <ClInclude Include="src\absGL\InputHandler.h" />
+    <ClInclude Include="src\absGL\Model.h" />
+    <ClInclude Include="src\absGL\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\InputHandler.cpp" />
-    <ClCompile Include="src\Model.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\absGL\Shader.cpp" />
+    <ClCompile Include="src\absGL\InputHandler.cpp" />
+    <ClCompile Include="src\absGL\Model.cpp" />
+    <ClCompile Include="src\absGL\Renderer.cpp" />
     <ClCompile Include="src\vendor\glad.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

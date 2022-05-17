@@ -7,8 +7,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\vendor\glad.c">
-      <Filter>vendor</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\vert\v_default.glsl" />
+    <None Include="src\shaders\frag\f_default.glsl" />
   </ItemGroup>
 </Project>
