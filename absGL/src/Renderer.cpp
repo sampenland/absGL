@@ -9,14 +9,14 @@ namespace absGL
 		glViewport(0, 0, width, height);
 	}
 
-	Renderer::Renderer()
+	Renderer::Renderer(const std::string& title, unsigned int width, unsigned int height)
 	{
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		m_Window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+		m_Window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 		if (m_Window == NULL)
 		{
 			std::cout << "Failed to create GLFW window" << std::endl;
@@ -26,23 +26,22 @@ namespace absGL
 		glfwMakeContextCurrent(m_Window);
 		glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
 
-		// glad: load all OpenGL function pointers
-		// ---------------------------------------
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
 			std::cout << "Failed to initialize GLAD" << std::endl;
 			return;
 		}
+
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	}
 
 	Renderer::~Renderer()
 	{
-
+		glfwTerminate();
 	}
 
 	void Renderer::StartRender()
 	{
-		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
@@ -57,5 +56,10 @@ namespace absGL
 	void Renderer::EndRender()
 	{
 		glfwSwapBuffers(m_Window);
+	}
+
+	bool Renderer::ShouldClose()
+	{
+		return glfwWindowShouldClose(m_Window);
 	}
 }

@@ -1,37 +1,24 @@
 #include <AbsGL.h>
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
-#include <iostream>
-
-void processInput(GLFWwindow* window);
-
 int main(int argc, char** argv)
 {
 	using namespace absGL;
 
-    Renderer* renderer = new Renderer();
+    Renderer* renderer = new Renderer("Experimental", 800, 600);
+    InputHandler* inputHandler = new InputHandler();
     GLFWwindow* window = renderer->GetWindow();
 
-    while (!glfwWindowShouldClose(window))
+    while (!renderer->ShouldClose())
     {
-        processInput(window);
+        
+        inputHandler->ProcessInputs(window);
 
         renderer->StartRender();
         renderer->Render();
         renderer->EndRender();
-
-        glfwPollEvents();
     }
 
-    glfwTerminate();
+    delete renderer;
 
 	return 0;
-}
-
-void processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
 }

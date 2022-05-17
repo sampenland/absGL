@@ -6,6 +6,7 @@
 #include "Model.h"
 
 #include <vector>
+#include <string>
 
 namespace absGL
 {
@@ -17,12 +18,9 @@ namespace absGL
 		GLFWwindow* m_Window = nullptr;
 		std::vector<Model*> m_Models;
 
-		const unsigned int SCR_WIDTH = 800;
-		const unsigned int SCR_HEIGHT = 600;
-
 	public:
 
-		Renderer();
+		Renderer(const std::string& title, unsigned int width, unsigned int height);
 		~Renderer();
 
 		inline GLFWwindow* GetWindow() const { return m_Window; }
@@ -30,6 +28,8 @@ namespace absGL
 		void StartRender();
 		void Render();
 		void EndRender();
+
+		bool ShouldClose();
 
 	};
 }
