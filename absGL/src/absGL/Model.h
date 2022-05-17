@@ -13,7 +13,7 @@ namespace absGL
 
 	public:
 
-		Model(float* vertices, unsigned int* indices);
+		Model(const std::string& modelPath);
 		~Model();
 
 		void Render(Shader* shader);

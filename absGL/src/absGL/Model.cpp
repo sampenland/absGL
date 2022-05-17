@@ -4,8 +4,20 @@
 namespace absGL
 {
 
-	Model::Model(float* vertices, unsigned int* indices)
-	{
+	Model::Model(const std::string& modelPath)
+	{            
+        float vertices[] = {
+         0.5f,  0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f 
+        };
+
+        unsigned int indices[] = {
+            0, 1, 3,
+            1, 2, 3 
+        };
+
         // Generate buffers
         glGenVertexArrays(1, &m_VAORenderID);
         glGenBuffers(1, &m_VBORenderID);
