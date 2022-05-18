@@ -27,18 +27,23 @@ project "absGL"
 	}
 
 	includedirs {
+		"%{prj.name}/src",
 		"deps/opengl/include",
+		"deps/assimp/include",
 	}
 
 	buildoptions "/MDd"
 
-	libdirs { "deps/opengl/libs"}
+	libdirs { 
+		"deps/opengl/libs",
+		"deps/assimp/libs",
+	}
 
 	links {
 
 		"glfw3",
 		"opengl32",
-		
+		"assimp",
 	}
 
 	filter "system:windows"

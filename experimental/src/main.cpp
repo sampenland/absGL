@@ -8,10 +8,8 @@ int main(int argc, char** argv)
     InputHandler* inputHandler = new InputHandler();
     GLFWwindow* window = renderer->GetWindow();
     Shader* defaultShader = new Shader("src/shaders/vert/v_default.glsl", "src/shaders/frag/f_default.glsl");
-
     
-
-    Model m("res/models/box.obj");
+    Model m("models/model.obj");
 
     while (!renderer->ShouldClose())
     {
@@ -20,7 +18,7 @@ int main(int argc, char** argv)
 
         renderer->StartRender();
         renderer->Render();
-        m.Render(defaultShader);
+        m.Render(*defaultShader);
         renderer->EndRender();
     }
 
