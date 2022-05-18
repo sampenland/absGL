@@ -1,48 +1,64 @@
 #pragma once
 #include "Core.h"
 #include "Shader.h"
+#include "Vector.h"
 
-#include "vendor/glm/glm.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-#include <vector>
 #include <string>
+
+#define MAX_BONE_INFLUENCE 4
 
 namespace absGL
 {
-	struct ABSGL_API Vertex
-	{
-		glm::vec3 Position;
-		glm::vec3 Normal;
-		glm::vec2 TexCoords;
-		glm::vec3 Tangent;
-		glm::vec3 Bitangent;
-	};
+    struct Vertex {
+        // position
+        glm::vec3 Position;
+        // normal
+        glm::vec3 Normal;
+        // texCoords
+        glm::vec2 TexCoords;
+        // tangent
+        glm::vec3 Tangent;
+        // bitangent
+        glm::vec3 Bitangent;
+        //bone indexes which will influence this vertex
+        int m_BoneIDs[MAX_BONE_INFLUENCE];
+        //weights from each bone
+        float m_Weights[MAX_BONE_INFLUENCE];
+    };
 
-	struct ABSGL_API Texture 
-	{
-		unsigned int m_RenderID = 0;
-		std::string Type;
-		std::string Path;
-	};
+    struct Texture {
+        unsigned int id;
+        std::string type;
+        std::string path;
+    };
 
-	class ABSGL_API Mesh
-	{
+    class ABSGL_API Mesh 
+    {
 
-	public:
+    public:
+        // mesh Data
+        Vector<Vertex>       vertices;
+        Vector<unsigned int> indices;
+        Vector<Texture>      textures;
+        unsigned int VAO;
 
-		std::vector<Vertex>       m_Vertices;
-		std::vector<unsigned int> m_Indices;
-		std::vector<Texture>      m_Textures;
+        // constructor
+        Mesh();
+        Mesh(Vector<Vertex> vertices, Vector<unsigned int> indices, Vector<Texture> textures);
+        void SetData(absGL::Vector<Vertex> vertices, absGL::Vector<unsigned int> indices, absGL::Vector<Texture> textures);
 
-		Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-		void Render(Shader& shader);
+        // render the mesh
+        void Render(Shader& shader);
 
-	private:
+    private:
 
-		unsigned int m_VAORenderID;
-		unsigned int m_VBORenderID;
-		unsigned int m_EBORenderID;
+        // render data 
+        unsigned int VBO, EBO;
 
-		void SetupMesh();
-	};
+        // initializes all the buffer objects/arrays
+        void setupMesh();
+    };
 }

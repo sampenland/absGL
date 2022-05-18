@@ -1,4 +1,5 @@
 #include "InputHandler.h"
+#include "Renderer.h"
 
 namespace absGL
 {
@@ -18,5 +19,7 @@ namespace absGL
 
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, true);
+
+		Renderer::s_Camera->ProcessKeyboard(Camera_Movement::FORWARD, 0.1f);
 	}
 }

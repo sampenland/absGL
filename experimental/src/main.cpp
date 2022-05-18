@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     GLFWwindow* window = renderer->GetWindow();
     Shader* defaultShader = new Shader("src/shaders/vert/v_default.glsl", "src/shaders/frag/f_default.glsl");
     
-    Model m("models/model.obj");
+    Model m("src/models/cube.obj", defaultShader);
 
     while (!renderer->ShouldClose())
     {
@@ -18,7 +18,6 @@ int main(int argc, char** argv)
 
         renderer->StartRender();
         renderer->Render();
-        m.Render(*defaultShader);
         renderer->EndRender();
     }
 
@@ -27,6 +26,9 @@ int main(int argc, char** argv)
 
     if (inputHandler)
         delete inputHandler;
+
+    if (defaultShader)
+        delete defaultShader;
 
 	return 0;
 }

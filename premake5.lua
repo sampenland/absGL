@@ -30,6 +30,7 @@ project "absGL"
 		"%{prj.name}/src",
 		"deps/opengl/include",
 		"deps/assimp/include",
+		"deps/glm",
 	}
 
 	buildoptions "/MDd"
@@ -55,6 +56,7 @@ project "absGL"
 
 			"ABSGL_WINDOWS",
 			"ABSGL_BUILD_DLL",
+			"STB_IMAGE_IMPLEMENTATION",
 
 		}
 
@@ -97,6 +99,8 @@ project "experimental"
 
 		"absGL/src",
 		"deps/opengl/include",
+		"deps/assimp/include",
+		"deps/glm",
 
 	}
 

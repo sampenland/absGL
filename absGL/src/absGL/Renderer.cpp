@@ -4,6 +4,9 @@
 
 namespace absGL
 {
+	Camera* Renderer::s_Camera = nullptr;
+	Vector<Model> Renderer::s_Models;
+
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
 		glViewport(0, 0, width, height);
@@ -98,6 +101,8 @@ namespace absGL
 
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 
+		s_Camera = new Camera();
+
 		std::cout << "Renderer Created" << std::endl;
 	}
 
@@ -113,10 +118,11 @@ namespace absGL
 
 	void Renderer::Render()
 	{
-		/*for (auto model : m_Models)
+		for (int i = 0; i < s_Models.Count(); i++)
 		{
-			model->Render();
-		}*/
+			Model& model = s_Models[i];
+			model.Render();
+		}
 	}
 
 	void Renderer::EndRender()
