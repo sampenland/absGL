@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include "Renderer.h"
 
 namespace absGL
 {
@@ -27,6 +28,8 @@ namespace absGL
     // render the mesh
     void Mesh::Render(Shader& shader)
     {
+        shader.Use();
+
         // bind appropriate textures
         unsigned int diffuseNr = 1;
         unsigned int specularNr = 1;
@@ -52,6 +55,24 @@ namespace absGL
             // and finally bind the texture
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
         }
+
+        glm::vec3 direction;
+        direction.x = cos(glm::radians(Renderer::s_Camera->Yaw)) * cos(glm::radians(Renderer::s_Camera->Pitch));
+        direction.y = sin(glm::radians(Renderer::s_Camera->Pitch));
+        direction.z = sin(glm::radians(Renderer::s_Camera->Yaw)) * cos(glm::radians(Renderer::s_Camera->Pitch));
+        
+        Renderer::s_Camera->Front = glm::normalize(direction);
+
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view;
+        view = Renderer::s_Camera->GetViewMatrix();
+
+        glm::mat4 projection;
+        projection = glm::perspective(glm::radians(Renderer::s_Camera->Zoom), (float)Renderer::s_Width / (float)Renderer::s_Height, 0.1f, 100.0f);
+
+        shader.SetMat4("model", model);
+        shader.SetMat4("view", view);
+        shader.SetMat4("projection", projection);
 
         // draw mesh
         glBindVertexArray(VAO);

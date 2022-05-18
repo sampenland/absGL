@@ -17,6 +17,10 @@ namespace absGL
 
 		static Camera* s_Camera;
 		static Vector<Model> s_Models;
+		static unsigned int s_Width;
+		static unsigned int s_Height;
+		static float s_DeltaTime;
+		static float s_LastFrame;
 
 	private:
 
@@ -28,7 +32,8 @@ namespace absGL
 		~Renderer();
 
 		static inline void AddModel(Model& model) { s_Models.Push(model); }
-
+		
+		inline void HideMouse(bool val) { glfwSetInputMode(m_Window, GLFW_CURSOR, val ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL); }
 		inline GLFWwindow* GetWindow() const { return m_Window; }
 
 		void StartRender();

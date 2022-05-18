@@ -15,8 +15,18 @@ namespace absGL
 		~InputHandler();
 
 		void ProcessInputs(GLFWwindow* window);
+		void Keyboard(GLFWwindow* window);
+
+	public:
+
+		static int s_LastX;
+		static int s_LastY;
+
+		static void Mouse(GLFWwindow* window, double xposIn, double yposIn);
+		static void MouseScroll(GLFWwindow* window, double xoffset, double yoffset);
 
 	private:
+
 
 	};
 }

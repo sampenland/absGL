@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "InputHandler.h"
 
 #include <iostream>
 
@@ -6,6 +7,10 @@ namespace absGL
 {
 	Camera* Renderer::s_Camera = nullptr;
 	Vector<Model> Renderer::s_Models;
+	unsigned int Renderer::s_Width = 800;
+	unsigned int Renderer::s_Height = 600;
+	float Renderer::s_DeltaTime = 0.f;
+	float Renderer::s_LastFrame = 0.f;
 
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
@@ -62,6 +67,9 @@ namespace absGL
 
 	Renderer::Renderer(const std::string& title, unsigned int width, unsigned int height)
 	{
+		s_Width = width;
+		s_Height = height;
+
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -77,6 +85,8 @@ namespace absGL
 		}
 		glfwMakeContextCurrent(m_Window);
 		glfwSetFramebufferSizeCallback(m_Window, framebuffer_size_callback);
+		glfwSetCursorPosCallback(m_Window, InputHandler::Mouse);
+		glfwSetScrollCallback(m_Window, InputHandler::MouseScroll);
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
@@ -100,6 +110,7 @@ namespace absGL
 			0, nullptr, GL_TRUE);
 
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+		glEnable(GL_DEPTH_TEST);
 
 		s_Camera = new Camera();
 
@@ -113,6 +124,10 @@ namespace absGL
 
 	void Renderer::StartRender()
 	{
+		float currentFrame = static_cast<float>(glfwGetTime());
+		s_DeltaTime = currentFrame - s_LastFrame;
+		s_LastFrame = currentFrame;
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
