@@ -158,12 +158,16 @@
     <ClInclude Include="src\AbsGL.h" />
     <ClInclude Include="src\absGL\Camera.h" />
     <ClInclude Include="src\absGL\Core.h" />
+    <ClInclude Include="src\absGL\DirectionalLight.h" />
     <ClInclude Include="src\absGL\InputHandler.h" />
     <ClInclude Include="src\absGL\Mesh.h" />
     <ClInclude Include="src\absGL\Model.h" />
+    <ClInclude Include="src\absGL\PointLight.h" />
     <ClInclude Include="src\absGL\Renderer.h" />
     <ClInclude Include="src\absGL\Shader.h" />
     <ClInclude Include="src\absGLpch.h" />
+    <ClInclude Include="src\absGL\SpotLight.h" />
+    <ClInclude Include="src\absGL\Vec3.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
   </ItemGroup>
   <ItemGroup>

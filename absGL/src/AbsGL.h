@@ -4,3 +4,4 @@
 #include "absGL/InputHandler.h"
 #include "absGL/Shader.h"
 #include "absGL/Mesh.h"
+#include "absGL/Vec3.h"
