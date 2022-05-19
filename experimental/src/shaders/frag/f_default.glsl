@@ -128,7 +128,8 @@ vec3 calculate_spot_light(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewD
 
 void main()
 {    
-vec3 norm = normalize(Normal);
+    
+    vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
     
     // == =====================================================
@@ -151,6 +152,6 @@ vec3 norm = normalize(Normal);
     for(int i = 0; i < MAX_SPOT_LIGHTS; i++)
         result += calculate_spot_light(spotLights[i], norm, FragPos, viewDir);    
     
-    FragColor = vec4(result, 1.0);
+    FragColor = texture(material.diffuse, TexCoords);
 
 }
