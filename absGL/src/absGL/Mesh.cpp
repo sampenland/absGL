@@ -65,11 +65,12 @@ namespace absGL
         Renderer::s_Camera->Front = glm::normalize(direction);
 
         glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 view;
-        view = Renderer::s_Camera->GetViewMatrix();
-
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(Renderer::s_Camera->Zoom), (float)Renderer::s_Width / (float)Renderer::s_Height, 0.1f, 100.0f);
+        glm::mat4 view = Renderer::s_Camera->GetViewMatrix();
+        glm::mat4 projection = glm::perspective(
+            glm::radians(Renderer::s_Camera->Zoom), 
+            (float)Renderer::s_Width / (float)Renderer::s_Height, 
+            0.1f, 100.0f
+        );
 
         shader.SetMat4("model", model);
         shader.SetMat4("view", view);

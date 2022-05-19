@@ -10,7 +10,7 @@ int main(int argc, char** argv)
     GLFWwindow* window = renderer->GetWindow();
     Shader* defaultShader = new Shader("src/shaders/vert/v_default.glsl", "src/shaders/frag/f_default.glsl");
     
-    Model m("src/models/cube.obj", defaultShader);
+    Model m("src/models/cubes/grass_cube.obj", defaultShader);
 
     while (!renderer->ShouldClose())
     {

@@ -17,7 +17,11 @@ namespace absGL
 
     public:
 
-        // model data 
+        inline void SetShader(Shader* shader) { m_CurrentShader = shader; }
+
+        // draws the model, and thus all its meshes
+        void Render();
+
         absGL::Vector<Texture> m_Textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
         absGL::Vector<Mesh>    m_Meshes;
         std::string m_Directory;
@@ -26,11 +30,6 @@ namespace absGL
         // constructor, expects a filepath to a 3D model.
         Model() : m_GammaCorrection(false) {};
         Model(std::string const& path, Shader* startShader, bool gamma = false);
-
-        inline void SetShader(Shader* shader) { m_CurrentShader = shader; }
-
-        // draws the model, and thus all its meshes
-        void Render();
 
     private:
 
