@@ -1,18 +1,23 @@
 #include "absGLpch.h"
 #include "Model.h"
 #include "Renderer.h"
+#include "Mesh.h"
 
 #include "vendor/stb_image.h"
 
 namespace absGL
 {
     // constructor, expects a filepath to a 3D model.
-    Model::Model(std::string const& path, Shader* startShader, bool gamma) : m_GammaCorrection(gamma)
+    Model::Model(std::string const& path, Shader* startShader, float shininess, bool gamma) 
+        : m_GammaCorrection(gamma)
     {
         loadModel(path);
         SetShader(startShader);
-        Renderer::AddModel(this);
+
         m_Position = glm::vec3(0, 0, 0);
+        m_Material = new Material(shininess);
+
+        Renderer::AddModel(this);
     }
 
     void Model::SetPosition(float x, float y, float z)
@@ -24,7 +29,7 @@ namespace absGL
     void Model::Render()
     {
         for (int i = 0; i < m_Meshes.size(); i++)
-            m_Meshes[i].Render(*m_CurrentShader, m_Position);
+            m_Meshes[i].Render(*m_CurrentShader, *this);
     }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting m_Meshes in the m_Meshes vector.

@@ -13,9 +13,9 @@ int main(int argc, char** argv)
     Shader* defaultShader = new Shader("src/shaders/vert/v_default.glsl", "src/shaders/frag/f_default.glsl");
     
     DirectionalLight* dirLight = new DirectionalLight(
-        Vec3(0.7, 0.2, 0.25),
-        Vec3(1.f, 1.f, 1.f),
-        Vec3(1.f, 1.f, 1.f),
+        Vec3(-0.2f, -1.0f, -0.3f),
+        Vec3(.2f, .2f, .2f),
+        Vec3(.5f, .25f, .15f),
         Vec3(0.5, 0.5, 0.5)
     );
 

@@ -144,6 +144,8 @@ void main()
     for(int i = 0; i < directionalLightCount; i++)
         result += calculate_directional_light(directionalLights[i], norm, viewDir);
     
+    FragColor = vec4(result, 1.0);
+
     // phase 2: point lights
     for(int i = 0; i < MAX_POINT_LIGHTS; i++)
         result += calculate_point_light(pointLights[i], norm, FragPos, viewDir);    
@@ -152,6 +154,5 @@ void main()
     for(int i = 0; i < MAX_SPOT_LIGHTS; i++)
         result += calculate_spot_light(spotLights[i], norm, FragPos, viewDir);    
     
-    FragColor = texture(material.diffuse, TexCoords);
 
 }

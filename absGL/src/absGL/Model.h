@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Core.h"
-#include "Mesh.h"
 #include "Shader.h"
+#include "Material.h"
+#include "Texture.h"
+#include "Mesh.h"
 
 #include "assimp/Importer.hpp"
 #include <assimp/scene.h>
@@ -24,6 +26,9 @@ namespace absGL
         void SetPosition(float x, float y, float z);
         inline void SetShader(Shader* shader) { m_CurrentShader = shader; }
 
+        inline glm::vec3 GetPosition() const { return m_Position; }
+        inline float GetShininess() const { return m_Material->Shininess; }
+
         // draws the model, and thus all its meshes
         void Render();
 
@@ -33,7 +38,7 @@ namespace absGL
         bool m_GammaCorrection;
 
         // constructor, expects a filepath to a 3D model.
-        Model(std::string const& path, Shader* startShader, bool gamma = false);
+        Model(std::string const& path, Shader* startShader, float shininess = 32, bool gamma = false);
 
     private:
 
@@ -52,6 +57,7 @@ namespace absGL
         unsigned int TextureFromFile(const char* path, const std::string& m_Directory, bool gamma);
 
         Shader* m_CurrentShader = nullptr;
+        Material* m_Material;
         glm::vec3 m_Position;
 
     };

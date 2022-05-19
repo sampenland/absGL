@@ -39,6 +39,9 @@
     <ClInclude Include="src\absGL\Vec3.h" />
     <ClInclude Include="src\absGL\PointLight.h" />
     <ClInclude Include="src\absGL\SpotLight.h" />
+    <ClInclude Include="src\absGL\Material.h" />
+    <ClInclude Include="src\absGL\Vertex.h" />
+    <ClInclude Include="src\absGL\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\absGL\InputHandler.cpp">

@@ -27,7 +27,7 @@ namespace absGL
     }
 
     // render the mesh
-    void Mesh::Render(Shader& shader, glm::vec3& position)
+    void Mesh::Render(Shader& shader, Model& modelRef)
     {
         shader.Use();
 
@@ -65,7 +65,7 @@ namespace absGL
         Renderer::s_Camera->Front = glm::normalize(direction);
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, position);
+        model = glm::translate(model, modelRef.GetPosition());
 
         glm::mat4 view = Renderer::s_Camera->GetViewMatrix();
         glm::mat4 projection = glm::perspective(
@@ -74,6 +74,7 @@ namespace absGL
             0.1f, 100.0f
         );
 
+        shader.SetFloat("material.shininess", modelRef.GetShininess());
         shader.SetMat4("model", model);
         shader.SetMat4("view", view);
         shader.SetMat4("projection", projection);
