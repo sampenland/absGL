@@ -1,30 +1,29 @@
 #pragma once
 #include "Core.h"
 #include "Vec3.h"
+#include "Shader.h"
 
 #include <glm/glm.hpp>
 
 namespace absGL
 {
-	class ABSGL_API DirectionalLight
+	struct ABSGL_API DirectionalLight
 	{
 
 	public:
 
-		DirectionalLight(Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular)
-		{
-			m_Direction = glm::vec3(direction.X, direction.Y, direction.Z);
-			m_Ambient = glm::vec3(ambient.X, ambient.Y, ambient.Z);
-			m_Diffuse = glm::vec3(diffuse.X, diffuse.Y, diffuse.Z);
-			m_Specular = glm::vec3(specular.X, specular.Y, specular.Z);
-		}
+		DirectionalLight(Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular);
+		~DirectionalLight();
 
-	private:
+		void UpdateShader(Shader& shader);
 
-		glm::vec3 m_Direction;
+		static unsigned int LightCount;
 
-		glm::vec3 m_Ambient;
-		glm::vec3 m_Diffuse;
-		glm::vec3 m_Specular;
+		unsigned int Index;
+		glm::vec3 Direction;
+		glm::vec3 Ambient;
+		glm::vec3 Diffuse;
+		glm::vec3 Specular;
+		
 	};
 }

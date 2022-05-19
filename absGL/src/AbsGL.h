@@ -5,3 +5,4 @@
 #include "absGL/Shader.h"
 #include "absGL/Mesh.h"
 #include "absGL/Vec3.h"
+#include "absGL/DirectionalLight.h"

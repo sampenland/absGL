@@ -1,6 +1,10 @@
 #version 330 core
 out vec4 FragColor;
 
+#define MAX_DIRECTIONAL_LIGHTS 4
+#define MAX_POINT_LIGHTS 8
+#define MAX_SPOT_LIGHTS 8
+
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
@@ -50,13 +54,13 @@ struct SpotLight {
 
 uniform vec3 viewPos;
 
-#define NUM_DIRECTIONAL_LIGHTS 2
-#define NUM_POINT_LIGHTS 4
-#define NUM_SPOT_LIGHTS 4
+uniform int directionalLightCount;
+uniform int pointLightCount;
+uniform int spotLightCount;
 
-uniform DirLight dirLights[NUM_DIRECTIONAL_LIGHTS];
-uniform PointLight pointLights[NUM_POINT_LIGHTS];
-uniform SpotLight spotLights[NUM_SPOT_LIGHTS];
+uniform DirLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
+uniform PointLight pointLights[MAX_POINT_LIGHTS];
+uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 uniform Material material;
 
@@ -136,15 +140,15 @@ vec3 norm = normalize(Normal);
     
     // phase 1: directional lighting
     vec3 result;
-    for(int i = 0; i < NUM_DIRECTIONAL_LIGHTS; i++)
-        result += calculate_directional_light(dirLights[i], norm, viewDir);
+    for(int i = 0; i < directionalLightCount; i++)
+        result += calculate_directional_light(directionalLights[i], norm, viewDir);
     
     // phase 2: point lights
-    for(int i = 0; i < NUM_POINT_LIGHTS; i++)
+    for(int i = 0; i < MAX_POINT_LIGHTS; i++)
         result += calculate_point_light(pointLights[i], norm, FragPos, viewDir);    
     
     // phase 3: spot light
-    for(int i = 0; i < NUM_SPOT_LIGHTS; i++)
+    for(int i = 0; i < MAX_SPOT_LIGHTS; i++)
         result += calculate_spot_light(spotLights[i], norm, FragPos, viewDir);    
     
     FragColor = vec4(result, 1.0);

@@ -80,8 +80,7 @@ namespace absGL
     {
         GLint loc = GetUniformLocation(name);
 
-        if (loc == -1)
-            return;
+        assert(loc != -1);
 
         glUniform1i(loc, value);
     }
@@ -90,18 +89,34 @@ namespace absGL
     {
         GLint loc = GetUniformLocation(name);
 
-        if (loc == -1)
-            return;
+        assert(loc != -1);
 
         glUniform1f(loc, value);
     }
+
+    void Shader::SetVec3(const std::string& name, const glm::vec3& value) const
+    {
+        GLint loc = GetUniformLocation(name);
+
+        assert(loc != -1);
+
+        glUniform3fv(loc, 1, &value[0]);
+    }
+    void Shader::SetVec3(const std::string& name, float x, float y, float z) const
+    {
+        GLint loc = GetUniformLocation(name);
+
+        assert(loc != -1);
+
+        glUniform3f(loc, x, y, z);
+    }
+    //
 
     void Shader::SetMat4(const std::string& name, glm::mat4 value) const
     {
         GLint loc = GetUniformLocation(name);
 
-        if (loc == -1)
-            return;
+        assert(loc != -1);
 
         glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
     }

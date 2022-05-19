@@ -60,5 +60,6 @@
     <ClCompile Include="src\vendor\glad.c">
       <Filter>vendor</Filter>
     </ClCompile>
+    <ClCompile Include="src\absGL\DirectionalLight.cpp" />
   </ItemGroup>
 </Project>

@@ -12,6 +12,13 @@ int main(int argc, char** argv)
     GLFWwindow* window = renderer->GetWindow();
     Shader* defaultShader = new Shader("src/shaders/vert/v_default.glsl", "src/shaders/frag/f_default.glsl");
     
+    DirectionalLight* dirLight = new DirectionalLight(
+        Vec3(0.7, 0.2, 0.25),
+        Vec3(1.f, 1.f, 1.f),
+        Vec3(1.f, 1.f, 1.f),
+        Vec3(0.5, 0.5, 0.5)
+    );
+
     for (int i = -2; i < 2; i++)
     {
         for (int j = -2; j < 2; j++)
@@ -30,6 +37,7 @@ int main(int argc, char** argv)
         inputHandler->ProcessInputs(window);
 
         renderer->StartRender();
+        dirLight->UpdateShader(*defaultShader);
         renderer->Render();
         renderer->EndRender();
     }
