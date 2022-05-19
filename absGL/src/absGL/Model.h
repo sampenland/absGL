@@ -8,6 +8,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <glm/glm.hpp>
+
+#include <vector>
+
 namespace absGL
 {
     class Renderer;
@@ -17,18 +21,18 @@ namespace absGL
 
     public:
 
+        void SetPosition(float x, float y, float z);
         inline void SetShader(Shader* shader) { m_CurrentShader = shader; }
 
         // draws the model, and thus all its meshes
         void Render();
 
-        absGL::Vector<Texture> m_Textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-        absGL::Vector<Mesh>    m_Meshes;
+        std::vector<Texture> m_Textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+        std::vector<Mesh>    m_Meshes;
         std::string m_Directory;
         bool m_GammaCorrection;
 
         // constructor, expects a filepath to a 3D model.
-        Model() : m_GammaCorrection(false) {};
         Model(std::string const& path, Shader* startShader, bool gamma = false);
 
     private:
@@ -43,11 +47,12 @@ namespace absGL
 
         // checks all material textures of a given type and loads the textures if they're not loaded yet.
         // the required info is returned as a Texture struct.
-        absGL::Vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+        std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 
         unsigned int TextureFromFile(const char* path, const std::string& m_Directory, bool gamma);
 
         Shader* m_CurrentShader = nullptr;
+        glm::vec3 m_Position;
 
     };
 }

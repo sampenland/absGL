@@ -7,7 +7,7 @@
 namespace absGL
 {
 	Camera* Renderer::s_Camera = nullptr;
-	Vector<Model> Renderer::s_Models;
+	std::vector<Model*> Renderer::s_Models;
 	unsigned int Renderer::s_Width = 800;
 	unsigned int Renderer::s_Height = 600;
 	float Renderer::s_DeltaTime = 0.f;
@@ -134,9 +134,9 @@ namespace absGL
 
 	void Renderer::Render()
 	{
-		for (int i = 0; i < s_Models.Count(); i++)
+		for (int i = 0; i < s_Models.size(); i++)
 		{
-			Model& model = s_Models[i];
+			Model& model = *s_Models[i];
 			model.Render();
 		}
 	}
@@ -149,5 +149,10 @@ namespace absGL
 	bool Renderer::ShouldClose()
 	{
 		return glfwWindowShouldClose(m_Window);
+	}
+
+	void Renderer::SetCameraPosition(float x, float y, float z)
+	{
+		s_Camera->Position = glm::vec3(x, y, z);
 	}
 }

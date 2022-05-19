@@ -11,14 +11,20 @@ namespace absGL
     {
         loadModel(path);
         SetShader(startShader);
-        Renderer::AddModel(*this);
+        Renderer::AddModel(this);
+        m_Position = glm::vec3(0, 0, 0);
+    }
+
+    void Model::SetPosition(float x, float y, float z)
+    {
+        m_Position = glm::vec3(x, y, z);
     }
 
     // draws the model, and thus all its m_Meshes
     void Model::Render()
     {
-        for (int i = 0; i < m_Meshes.Count(); i++)
-            m_Meshes[i].Render(*m_CurrentShader);
+        for (int i = 0; i < m_Meshes.size(); i++)
+            m_Meshes[i].Render(*m_CurrentShader, m_Position);
     }
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting m_Meshes in the m_Meshes vector.
@@ -49,7 +55,7 @@ namespace absGL
             // the node object only contains indices to index the actual objects in the scene. 
             // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-            m_Meshes.Push(processMesh(mesh, scene));
+            m_Meshes.push_back(processMesh(mesh, scene));
         }
         // after we've processed all of the m_Meshes (if any) we then recursively process each of the children nodes
         for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -62,9 +68,9 @@ namespace absGL
     Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     {
         // data to fill
-        absGL::Vector<Vertex> vertices;
-        absGL::Vector<unsigned int> indices;
-        absGL::Vector<Texture> textures;
+        std::vector<Vertex> vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Texture> textures;
 
         // walk through each of the mesh's vertices
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -107,7 +113,7 @@ namespace absGL
             else
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 
-            vertices.Push(vertex);
+            vertices.push_back(vertex);
         }
         // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
         for (unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -115,7 +121,7 @@ namespace absGL
             aiFace face = mesh->mFaces[i];
             // retrieve all indices of the face and store them in the indices vector
             for (unsigned int j = 0; j < face.mNumIndices; j++)
-                indices.Push(face.mIndices[j]);
+                indices.push_back(face.mIndices[j]);
         }
         // process materials
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -127,36 +133,21 @@ namespace absGL
         // normal: texture_normalN
 
         // 1. diffuse maps
-        absGL::Vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
-        for (int i = 0; i < diffuseMaps.Count(); i++)
-        {
-            textures.Push(diffuseMaps[i]);
-        }
-
-        //textures.Insert(textures.End(), diffuseMaps.Begin(), diffuseMaps.End());
         // 
         // 2. specular maps
-        absGL::Vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-        for (int i = 0; i < specularMaps.Count(); i++)
-        {
-            textures.Push(specularMaps[i]);
-        }
-        //textures.Insert(textures.End(), specularMaps.Begin(), specularMaps.End());
+        std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
         // 3. normal maps
-        absGL::Vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-        for (int i = 0; i < normalMaps.Count(); i++)
-        {
-            textures.Push(normalMaps[i]);
-        }
-        //textures.Insert(textures.End(), normalMaps.Begin(), normalMaps.End());
+        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+
         // 4. height maps
-        absGL::Vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-        for (int i = 0; i < heightMaps.Count(); i++)
-        {
-            textures.Push(heightMaps[i]);
-        }
-        //textures.Insert(textures.End(), heightMaps.Begin(), heightMaps.End());
+        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         // return a mesh object created from the extracted mesh data
         return Mesh(vertices, indices, textures);
@@ -164,20 +155,20 @@ namespace absGL
 
     // checks all material textures of a given type and loads the textures if they're not loaded yet.
     // the required info is returned as a Texture struct.
-    absGL::Vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+    std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
     {
-        absGL::Vector<Texture> textures;
+        std::vector<Texture> textures;
         for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
         {
             aiString str;
             mat->GetTexture(type, i, &str);
             // check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
             bool skip = false;
-            for (int j = 0; j < m_Textures_loaded.Count(); j++)
+            for (int j = 0; j < m_Textures_loaded.size(); j++)
             {
                 if (std::strcmp(m_Textures_loaded[j].path.data(), str.C_Str()) == 0)
                 {
-                    textures.Push(m_Textures_loaded[j]);
+                    textures.push_back(m_Textures_loaded[j]);
                     skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
                     break;
                 }
@@ -188,8 +179,8 @@ namespace absGL
                 texture.id = TextureFromFile(str.C_Str(), this->m_Directory, m_GammaCorrection);
                 texture.type= typeName;
                 texture.path = str.C_Str();
-                textures.Push(texture);
-                m_Textures_loaded.Push(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+                textures.push_back(texture);
+                m_Textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
             }
         }
         return textures;

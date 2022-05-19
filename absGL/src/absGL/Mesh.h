@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Shader.h"
-#include "Vector.h"
+#include <vector>
 
 #define MAX_BONE_INFLUENCE 4
 
@@ -35,18 +35,18 @@ namespace absGL
 
     public:
         // mesh Data
-        Vector<Vertex>       vertices;
-        Vector<unsigned int> indices;
-        Vector<Texture>      textures;
+        std::vector<Vertex>       vertices;
+        std::vector<unsigned int> indices;
+        std::vector<Texture>      textures;
         unsigned int VAO;
 
         // constructor
         Mesh();
-        Mesh(Vector<Vertex> vertices, Vector<unsigned int> indices, Vector<Texture> textures);
-        void SetData(absGL::Vector<Vertex> vertices, absGL::Vector<unsigned int> indices, absGL::Vector<Texture> textures);
+        Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+        void SetData(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
 
         // render the mesh
-        void Render(Shader& shader);
+        void Render(Shader& shader, glm::vec3& position);
 
     private:
 
