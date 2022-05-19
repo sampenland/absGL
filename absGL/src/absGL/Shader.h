@@ -1,11 +1,15 @@
 #pragma once
 #include "Core.h"
 
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "glm/gtc/type_ptr.hpp"
 
 #include <string>
+#include <unordered_map>
 
 namespace absGL
 {
@@ -30,7 +34,10 @@ namespace absGL
 
     private:
 
+        GLint GetUniformLocation(const std::string& name) const;
         void CheckCompileErrors(unsigned int shader, std::string type);
+
+        mutable std::unordered_map<std::string, GLint> m_Uniforms;
 
     };
 }

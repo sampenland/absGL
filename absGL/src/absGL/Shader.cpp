@@ -4,7 +4,6 @@
 
 #include "Shader.h"
 
-
 namespace absGL
 {
     Shader::Shader(const char* vertexPath, const char* fragmentPath)
@@ -69,23 +68,51 @@ namespace absGL
 
     void Shader::SetBool(const std::string& name, bool value) const
     {
-        glUniform1i(glGetUniformLocation(m_RenderID, name.c_str()), (int)value);
+        GLint loc = GetUniformLocation(name);
+
+        if (loc == -1)
+            return;
+
+        glUniform1i(loc, (int)value);
     }
 
     void Shader::SetInt(const std::string& name, int value) const
     {
-        glUniform1i(glGetUniformLocation(m_RenderID, name.c_str()), value);
+        GLint loc = GetUniformLocation(name);
+
+        if (loc == -1)
+            return;
+
+        glUniform1i(loc, value);
     }
 
     void Shader::SetFloat(const std::string& name, float value) const
     {
-        glUniform1f(glGetUniformLocation(m_RenderID, name.c_str()), value);
+        GLint loc = GetUniformLocation(name);
+
+        if (loc == -1)
+            return;
+
+        glUniform1f(loc, value);
     }
 
     void Shader::SetMat4(const std::string& name, glm::mat4 value) const
     {
-        unsigned int loc = glGetUniformLocation(m_RenderID, name.c_str());
+        GLint loc = GetUniformLocation(name);
+
+        if (loc == -1)
+            return;
+
         glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(value));
+    }
+
+    GLint Shader::GetUniformLocation(const std::string& name) const
+    {
+        if (m_Uniforms.find(name) != m_Uniforms.end())
+            return m_Uniforms[name];
+
+        m_Uniforms[name] = glGetUniformLocation(m_RenderID, name.c_str());
+        return m_Uniforms[name];
     }
 
     void Shader::CheckCompileErrors(unsigned int shader, std::string type)
