@@ -1,10 +1,5 @@
 #pragma once
 
-#include "Core.h"
-
-#include <iterator>
-#include <assert.h>
-
 namespace absGL
 {
     template <typename T> class ABSGL_API Vector

@@ -1,12 +1,7 @@
 #pragma once
-#include "Core.h"
+
 #include "Shader.h"
 #include "Vector.h"
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <string>
 
 #define MAX_BONE_INFLUENCE 4
 

@@ -76,7 +76,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>absGLpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ABSGL_WINDOWS;ABSGL_BUILD_DLL;STB_IMAGE_IMPLEMENTATION;ABSGL_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;..\deps\opengl\include;..\deps\assimp\include;..\deps\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -99,7 +100,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>absGLpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ABSGL_WINDOWS;ABSGL_BUILD_DLL;STB_IMAGE_IMPLEMENTATION;ABSGL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;..\deps\opengl\include;..\deps\assimp\include;..\deps\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -126,7 +128,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>absGLpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>ABSGL_WINDOWS;ABSGL_BUILD_DLL;STB_IMAGE_IMPLEMENTATION;ABSGL_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;..\deps\opengl\include;..\deps\assimp\include;..\deps\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -161,6 +164,7 @@
     <ClInclude Include="src\absGL\Renderer.h" />
     <ClInclude Include="src\absGL\Shader.h" />
     <ClInclude Include="src\absGL\Vector.h" />
+    <ClInclude Include="src\absGLpch.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +173,12 @@
     <ClCompile Include="src\absGL\Model.cpp" />
     <ClCompile Include="src\absGL\Renderer.cpp" />
     <ClCompile Include="src\absGL\Shader.cpp" />
-    <ClCompile Include="src\vendor\glad.c" />
+    <ClCompile Include="src\absGLpch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\vendor\glad.c">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

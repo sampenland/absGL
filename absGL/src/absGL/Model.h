@@ -1,22 +1,12 @@
 #pragma once
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include "Core.h"
+#include "Mesh.h"
+#include "Shader.h"
+
 #include "assimp/Importer.hpp"
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-
-#include "Mesh.h"
-#include "Shader.h"
-#include "Vector.h"
-
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <string>
 
 namespace absGL
 {

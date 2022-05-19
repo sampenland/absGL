@@ -47,6 +47,12 @@ project "absGL"
 		"assimp",
 	}
 
+	pchheader "absGLpch.h"
+	pchsource "absGL/src/absGLpch.cpp"
+
+	filter "files:**.c"
+    	flags {"NoPCH"}
+
 	filter "system:windows"
 		cppdialect "C++17"
 		staticruntime "On"

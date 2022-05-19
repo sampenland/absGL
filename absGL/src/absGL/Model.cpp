@@ -1,7 +1,8 @@
-#pragma once
+#include "absGLpch.h"
 #include "Model.h"
-#include "vendor/stb_image.h"
 #include "Renderer.h"
+
+#include "vendor/stb_image.h"
 
 namespace absGL
 {
