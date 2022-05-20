@@ -8,4 +8,10 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\vert\v_shadowMap.glsl" />
+    <None Include="src\shaders\frag\f_shadowMap.glsl" />
+    <None Include="src\shaders\frag\f_default.glsl" />
+    <None Include="src\shaders\vert\v_default.glsl" />
+  </ItemGroup>
 </Project>

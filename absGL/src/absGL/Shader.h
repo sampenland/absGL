@@ -23,6 +23,7 @@ namespace absGL
         Shader(const char* vertexPath, const char* fragmentPath);
 
         void Use();
+        static void Release();
 
         void SetBool(const std::string& name, bool value) const;
 

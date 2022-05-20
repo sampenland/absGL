@@ -16,7 +16,16 @@
     <ClInclude Include="src\absGL\Core.h">
       <Filter>absGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\absGL\DirectionalLight.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\absGL\InputHandler.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\absGL\Light.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\absGL\Material.h">
       <Filter>absGL</Filter>
     </ClInclude>
     <ClInclude Include="src\absGL\Mesh.h">
@@ -25,26 +34,39 @@
     <ClInclude Include="src\absGL\Model.h">
       <Filter>absGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\absGL\PointLight.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\absGL\Renderer.h">
       <Filter>absGL</Filter>
     </ClInclude>
     <ClInclude Include="src\absGL\Shader.h">
       <Filter>absGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\absGL\SpotLight.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\absGL\Texture.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\absGL\Vec3.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\absGL\Vec4.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\absGL\Vertex.h">
+      <Filter>absGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\absGLpch.h" />
     <ClInclude Include="src\vendor\stb_image.h">
       <Filter>vendor</Filter>
     </ClInclude>
-    <ClInclude Include="src\absGL\DirectionalLight.h" />
-    <ClInclude Include="src\absGL\Vec3.h" />
-    <ClInclude Include="src\absGL\PointLight.h" />
-    <ClInclude Include="src\absGL\SpotLight.h" />
-    <ClInclude Include="src\absGL\Material.h" />
-    <ClInclude Include="src\absGL\Vertex.h" />
-    <ClInclude Include="src\absGL\Texture.h" />
-    <ClInclude Include="src\absGL\Vec4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\absGL\DirectionalLight.cpp">
+      <Filter>absGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\absGL\InputHandler.cpp">
       <Filter>absGL</Filter>
     </ClCompile>
@@ -54,18 +76,21 @@
     <ClCompile Include="src\absGL\Model.cpp">
       <Filter>absGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\absGL\PointLight.cpp">
+      <Filter>absGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\absGL\Renderer.cpp">
       <Filter>absGL</Filter>
     </ClCompile>
     <ClCompile Include="src\absGL\Shader.cpp">
       <Filter>absGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\absGL\SpotLight.cpp">
+      <Filter>absGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\absGLpch.cpp" />
     <ClCompile Include="src\vendor\glad.c">
       <Filter>vendor</Filter>
     </ClCompile>
-    <ClCompile Include="src\absGL\DirectionalLight.cpp" />
-    <ClCompile Include="src\absGL\PointLight.cpp" />
-    <ClCompile Include="src\absGL\SpotLight.cpp" />
   </ItemGroup>
 </Project>
