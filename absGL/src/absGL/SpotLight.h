@@ -29,10 +29,10 @@ namespace absGL
 	public:
 
 		SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular, 
-			SpotLightDistances distance, float cutoff, float outerCutoff);
+			SpotLightDistances distance, float cutoffDegrees, float softEdgeAmount);
 
 		SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
-			float cutoff, float outerCutoff,
+			float cutoffDegrees, float softEdgeAmount,
 			float constant, float linear, float quadratic);
 
 		~SpotLight();

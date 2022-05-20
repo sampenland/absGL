@@ -9,6 +9,9 @@ namespace absGL
 {
 	enum class PointLightDistances
 	{
+		DISTANCE_1,
+		DISTANCE_2,
+		DISTANCE_5,
 		DISTANCE_7,
 		DISTANCE_13,	
 		DISTANCE_20,

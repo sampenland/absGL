@@ -7,7 +7,7 @@ namespace absGL
 	unsigned int SpotLight::LightCount = 0;
 
 	SpotLight::SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
-		SpotLightDistances distance, float cutoff, float outerCutoff)
+		SpotLightDistances distance, float spotSize, float softEdgeAmount)
 		: Constant(1.0f), Linear(0.7f), Quadratic(1.8f)
 	{
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
@@ -80,19 +80,23 @@ namespace absGL
 			break;
 		}
 
-		CutOff = cutoff;
-		OuterCutOff = outerCutoff;
+		CutOff = glm::cos(glm::radians(spotSize));
+		OuterCutOff = glm::cos(glm::radians(spotSize + softEdgeAmount));
 
 		Index = LightCount;
 		LightCount++;
 
 	}
 
+	/*
+	Spot size is size of cirle of spot light
+	soft edge amount is a small float amount of the fade amount (is added to spot size so should be small)
+	*/
 	SpotLight::SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
-		float cutoff, float outerCutoff,
+		float spotSize, float softEdgeAmount,
 		float constant, float linear, float quadratic)
 		: Constant(constant), Linear(linear), Quadratic(quadratic), 
-		CutOff(cutoff), OuterCutOff(outerCutoff)
+		CutOff(spotSize), OuterCutOff(spotSize + softEdgeAmount)
 	{
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
 		Position = glm::vec3(position.X, position.Y, position.Z);

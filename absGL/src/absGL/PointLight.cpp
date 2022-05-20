@@ -17,10 +17,20 @@ namespace absGL
 
 		switch (distance)
 		{
-		case PointLightDistances::DISTANCE_7:
+		case PointLightDistances::DISTANCE_1:
 			Constant = 1.0f;
-			Linear = 0.7f;
-			Quadratic = 1.8f;
+			Linear = 3.7f;
+			Quadratic = 4.8f;
+			break;
+		case PointLightDistances::DISTANCE_2:
+			Constant = 1.0f;
+			Linear = 2.7f;
+			Quadratic = 3.8f;
+			break;
+		case PointLightDistances::DISTANCE_5:
+			Constant = 1.0f;
+			Linear = 1.7f;
+			Quadratic = 2.8f;
 			break;
 		case PointLightDistances::DISTANCE_13:
 			Constant = 1.0f;

@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     
     DirectionalLight* dirLight = new DirectionalLight(
         Vec3(-0.2f, -1.0f, -0.3f),
-        Vec3(.2f, .2f, .2f),
+        Vec3(.1f, .1f, .1f),
         Vec3(.5f, .25f, .15f),
         Vec3(0.5, 0.5, 0.5)
     );
@@ -22,29 +22,32 @@ int main(int argc, char** argv)
     PointLight* pointLight = new PointLight(
         Vec3(0, 1, 0),
         Vec3(.53f, .35f, .35f),
-        Vec3(.5f, .25f, .15f),
-        Vec3(0.5, 0.5, 0.5)
+        Vec3(.7f, .7f, .7f),
+        Vec3(0.5, 0.5, 0.5),
+        PointLightDistances::DISTANCE_2
     );
 
     SpotLight* spotLight = new SpotLight(
-        Vec3(0, 1, 0),
+        Vec3(1, 1, 1),
         Vec3(-0.3, -1, 0),
         Vec3(.53f, .35f, .35f),
         Vec3(.5f, .25f, .15f),
         Vec3(0.5, 0.5, 0.5),
-        SpotLightDistances::DISTANCE_160,
-        3.f,
-        2.f
+        SpotLightDistances::DISTANCE_7,
+        22.5f,
+        7.5f
     );
+
+    const float spacing = 0.28f;
 
     for (int i = -5; i < 5; i++)
     {
         for (int j = -5; j < 5; j++)
         {
-            float x = i * 0.25f;
-            float z = j * 0.25f;
+            float x = i * (0.25f + spacing);
+            float z = j * (0.25f + spacing);
 
-            Model* m = new Model("src/models/cubes/grass_cube.obj", defaultShader);
+            Model* m = new Model("src/models/cubes/grass_cube.obj", defaultShader, 8);
             m->SetPosition(x, 0, z);
         }
     }
@@ -56,8 +59,8 @@ int main(int argc, char** argv)
 
         renderer->StartRender();
         dirLight->UpdateShader(*defaultShader);
-        //pointLight->UpdateShader(*defaultShader);
-        //spotLight->UpdateShader(*defaultShader);
+        pointLight->UpdateShader(*defaultShader);
+        spotLight->UpdateShader(*defaultShader);
         renderer->Render();
         renderer->EndRender();
     }
