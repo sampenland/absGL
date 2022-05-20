@@ -167,8 +167,9 @@ namespace absGL
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::ShadowMapRender(glm::vec3 lightPos)
+	void Renderer::ShadowMapRender(Light& light)
 	{
+		return;
 		static bool no_shadow_err = false;
 		if (!m_ShadowShader)
 		{
@@ -180,7 +181,6 @@ namespace absGL
 			return;
 		}
 
-		glCullFace(GL_FRONT);
 		glm::mat4 lightProjection, lightView;
 		glm::mat4 lightSpaceMatrix;
 		float near_plane = 1.0f;
@@ -188,43 +188,47 @@ namespace absGL
 		
 		const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
 		lightProjection = glm::perspective(glm::radians(45.0f), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane); 
-		lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+		lightView = glm::lookAt(light.Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
 		lightSpaceMatrix = lightProjection * lightView;
 		
-		// render scene from light's point of view
-		m_ShadowShader->Use();
-		m_ShadowShader->SetMat4("lightSpaceMatrix", lightSpaceMatrix);
-		glCullFace(GL_BACK);
+		light.SetSpaceMatrix(lightSpaceMatrix);
 	}
 
 	void Renderer::Render()
 	{
+		RenderLights();
+		RenderModels();
+	}
+
+	void Renderer::RenderLights()
+	{
 		for (int i = 0; i < s_Lights.size(); i++)
 		{
 			Light& light = *s_Lights[i];
+			ShadowMapRender(light);
 
 			if (light.Type == LightTypes::DIRECTIONAL)
 			{
 				DirectionalLight* direct = (DirectionalLight*)s_Lights[i];
-				//ShadowMapRender(direct->Position);
 				direct->UpdateShader();
 			}
 
 			if (light.Type == LightTypes::POINT)
 			{
 				PointLight* point = (PointLight*)s_Lights[i];
-				//ShadowMapRender(point->Position);
 				point->UpdateShader();
 			}
 
 			if (light.Type == LightTypes::SPOT)
 			{
 				SpotLight* spot = (SpotLight*)s_Lights[i];
-				//ShadowMapRender(spot->Position);
 				spot->UpdateShader();
 			}
 		}
+	}
 
+	void Renderer::RenderModels()
+	{
 		for (int i = 0; i < s_Models.size(); i++)
 		{
 			Model& model = *s_Models[i];
