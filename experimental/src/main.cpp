@@ -40,6 +40,9 @@ int main(int argc, char** argv)
 
     const float spacing = 0.28f;
 
+    // Create a template for a cube
+    Model* cube = new Model("src/models/cubes/grass_cube.obj", defaultShader, 8);
+
     for (int i = -5; i < 5; i++)
     {
         for (int j = -5; j < 5; j++)
@@ -47,7 +50,8 @@ int main(int argc, char** argv)
             float x = i * (0.25f + spacing);
             float z = j * (0.25f + spacing);
 
-            Model* m = new Model("src/models/cubes/grass_cube.obj", defaultShader, 8);
+            // Copy template into its own Model for rendering
+            Model* m = new Model(*cube);
             m->SetPosition(x, 0, z);
         }
     }

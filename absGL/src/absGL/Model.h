@@ -40,6 +40,9 @@ namespace absGL
         // constructor, expects a filepath to a 3D model.
         Model(std::string const& path, Shader* startShader, float shininess = 32, bool gamma = false);
 
+        // Copy constructor
+        Model(Model& m);
+
     private:
 
         // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.

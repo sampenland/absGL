@@ -20,6 +20,22 @@ namespace absGL
         Renderer::AddModel(this);
     }
 
+    Model::Model(Model& m)
+    {
+        // Public variables
+        m_Textures_loaded = m.m_Textures_loaded;
+        m_Meshes = m.m_Meshes;
+        m_Directory = m.m_Directory;
+        m_GammaCorrection = m.m_GammaCorrection;
+
+        // Private variables
+        m_CurrentShader = m.m_CurrentShader;
+        m_Material = m.m_Material;
+        m_Position = m.m_Position;
+
+        Renderer::AddModel(this);
+    }
+
     void Model::SetPosition(float x, float y, float z)
     {
         m_Position = glm::vec3(x, y, z);
