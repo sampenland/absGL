@@ -1,3 +1,15 @@
+/*
+
+    When exporting obj models from Blender,
+    make sure to go into the .mtl file and remove
+    the absolute path to the texture files and make it
+    just the texture name. Then store that texture in 
+    the same folder as the .obj file 
+
+    or set texture paths to be relative to .obj folder
+    location
+
+*/
 #pragma once
 
 #include "Core.h"

@@ -42,6 +42,7 @@
     <ClInclude Include="src\absGL\Material.h" />
     <ClInclude Include="src\absGL\Vertex.h" />
     <ClInclude Include="src\absGL\Texture.h" />
+    <ClInclude Include="src\absGL\Vec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\absGL\InputHandler.cpp">

@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 #include "Vec3.h"
+#include "Vec4.h"
 #include "Shader.h"
 
 #include <glm/glm.hpp>
@@ -31,9 +32,9 @@ namespace absGL
 
 	public:
 
-		PointLight(Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular, PointLightDistances distance);
+		PointLight(Vec4 color, Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular, PointLightDistances distance);
 
-		PointLight(Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+		PointLight(Vec4 color, Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 			float constant = 1.0f, float linear = 0.7f, float quadratic = 1.8f);
 
 		~PointLight();
@@ -48,6 +49,7 @@ namespace absGL
 		glm::vec3 Ambient;
 		glm::vec3 Diffuse;
 		glm::vec3 Specular;
+		glm::vec4 Color;
 
 		float Constant;
 		float Linear;

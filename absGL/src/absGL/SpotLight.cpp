@@ -6,10 +6,11 @@ namespace absGL
 {
 	unsigned int SpotLight::LightCount = 0;
 
-	SpotLight::SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+	SpotLight::SpotLight(Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 		SpotLightDistances distance, float spotSize, float softEdgeAmount)
 		: Constant(1.0f), Linear(0.7f), Quadratic(1.8f)
 	{
+		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
 		Position = glm::vec3(position.X, position.Y, position.Z);
 		Ambient = glm::vec3(ambient.X, ambient.Y, ambient.Z);
@@ -92,12 +93,13 @@ namespace absGL
 	Spot size is size of cirle of spot light
 	soft edge amount is a small float amount of the fade amount (is added to spot size so should be small)
 	*/
-	SpotLight::SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+	SpotLight::SpotLight(Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 		float spotSize, float softEdgeAmount,
 		float constant, float linear, float quadratic)
 		: Constant(constant), Linear(linear), Quadratic(quadratic), 
 		CutOff(spotSize), OuterCutOff(spotSize + softEdgeAmount)
 	{
+		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
 		Position = glm::vec3(position.X, position.Y, position.Z);
 		Ambient = glm::vec3(ambient.X, ambient.Y, ambient.Z);
@@ -122,6 +124,8 @@ namespace absGL
 
 		shader.SetVec3("spotLights[" + std::to_string(Index) + "].position", Position);
 		shader.SetVec3("spotLights[" + std::to_string(Index) + "].direction", Direction);
+
+		shader.SetVec4("spotLights[" + std::to_string(Index) + "].color", Color);
 
 		shader.SetVec3("spotLights[" + std::to_string(Index) + "].ambient", Ambient);
 		shader.SetVec3("spotLights[" + std::to_string(Index) + "].diffuse", Diffuse);

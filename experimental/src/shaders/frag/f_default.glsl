@@ -10,6 +10,10 @@ in vec3 Normal;
 in vec2 TexCoords;
 
 uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_diffuse2;
+
+uniform sampler2D texture_specular1;
+uniform sampler2D texture_specular2;
 
 struct Material {
     sampler2D diffuse;
@@ -23,6 +27,8 @@ struct DirLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    vec3 color;
 };
 
 struct PointLight {
@@ -35,6 +41,8 @@ struct PointLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    vec3 color;
 };
 
 struct SpotLight {
@@ -49,7 +57,9 @@ struct SpotLight {
   
     vec3 ambient;
     vec3 diffuse;
-    vec3 specular;       
+    vec3 specular;  
+    
+    vec3 color;
 };
 
 uniform vec3 viewPos;
@@ -76,7 +86,7 @@ vec3 calculate_directional_light(DirLight light, vec3 normal, vec3 viewDir)
     vec3 ambient  = light.ambient  * vec3(texture(material.diffuse, TexCoords));
     vec3 diffuse  = light.diffuse  * diff * vec3(texture(material.diffuse, TexCoords));
     vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoords));
-    return (ambient + diffuse + specular);
+    return (ambient + diffuse + specular) * light.color;
 } 
 
 vec3 calculate_point_light(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
@@ -98,7 +108,7 @@ vec3 calculate_point_light(PointLight light, vec3 normal, vec3 fragPos, vec3 vie
     ambient  *= attenuation;
     diffuse  *= attenuation;
     specular *= attenuation;
-    return (ambient + diffuse + specular);
+    return (ambient + diffuse + specular) * light.color;
 }
 
 vec3 calculate_spot_light(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
@@ -123,7 +133,7 @@ vec3 calculate_spot_light(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewD
     ambient *= attenuation * intensity;
     diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
-    return (ambient + diffuse + specular);
+    return (ambient + diffuse + specular) * light.color;
 }
 
 void main()

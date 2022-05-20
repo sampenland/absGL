@@ -13,6 +13,7 @@ int main(int argc, char** argv)
     Shader* defaultShader = new Shader("src/shaders/vert/v_default.glsl", "src/shaders/frag/f_default.glsl");
     
     DirectionalLight* dirLight = new DirectionalLight(
+        Vec4(1.f, 1.f, 1.f, 1.f),
         Vec3(-0.2f, -1.0f, -0.3f),
         Vec3(.1f, .1f, .1f),
         Vec3(.5f, .25f, .15f),
@@ -20,14 +21,16 @@ int main(int argc, char** argv)
     );
 
     PointLight* pointLight = new PointLight(
+        Vec4(1.f, 1.f, 1.f, 1.f),
         Vec3(0, 1, 0),
         Vec3(.53f, .35f, .35f),
         Vec3(.7f, .7f, .7f),
         Vec3(0.5, 0.5, 0.5),
-        PointLightDistances::DISTANCE_2
+        PointLightDistances::DISTANCE_7
     );
 
     SpotLight* spotLight = new SpotLight(
+        Vec4(1.f, 1.f, 1.f, 1.f),
         Vec3(1, 1, 1),
         Vec3(-0.3, -1, 0),
         Vec3(.53f, .35f, .35f),

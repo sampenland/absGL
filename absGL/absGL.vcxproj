@@ -170,6 +170,7 @@
     <ClInclude Include="src\absGL\SpotLight.h" />
     <ClInclude Include="src\absGL\Texture.h" />
     <ClInclude Include="src\absGL\Vec3.h" />
+    <ClInclude Include="src\absGL\Vec4.h" />
     <ClInclude Include="src\absGL\Vertex.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
   </ItemGroup>

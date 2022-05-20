@@ -7,9 +7,10 @@ namespace absGL
 {
 	unsigned int PointLight::LightCount = 0;
 
-	PointLight::PointLight(Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular, PointLightDistances distance)
+	PointLight::PointLight(Vec4 color, Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular, PointLightDistances distance)
 		: Constant(1.0f), Linear(0.7f), Quadratic(1.8f)
 	{
+		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Position = glm::vec3(position.X, position.Y, position.Z);
 		Ambient = glm::vec3(ambient.X, ambient.Y, ambient.Z);
 		Diffuse = glm::vec3(diffuse.X, diffuse.Y, diffuse.Z);
@@ -94,10 +95,11 @@ namespace absGL
 
 	}
 
-	PointLight::PointLight(Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular, 
+	PointLight::PointLight(Vec4 color, Vec3 position, Vec3 ambient, Vec3 diffuse, Vec3 specular, 
 		float constant, float linear, float quadratic)
 		: Constant(constant), Linear(linear), Quadratic(quadratic)
 	{
+		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Position = glm::vec3(position.X, position.Y, position.Z);
 		Ambient = glm::vec3(ambient.X, ambient.Y, ambient.Z);
 		Diffuse = glm::vec3(diffuse.X, diffuse.Y, diffuse.Z);
@@ -119,6 +121,7 @@ namespace absGL
 		shader.SetVec3("viewPos", Renderer::s_Camera->Position);
 		shader.SetInt("pointLightCount", LightCount);
 
+		shader.SetVec4("pointLights[" + std::to_string(Index) + "].color", Color);
 		shader.SetVec3("pointLights[" + std::to_string(Index) + "].position", Position);
 
 		shader.SetVec3("pointLights[" + std::to_string(Index) + "].ambient", Ambient);
