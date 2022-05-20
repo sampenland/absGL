@@ -64,5 +64,7 @@
       <Filter>vendor</Filter>
     </ClCompile>
     <ClCompile Include="src\absGL\DirectionalLight.cpp" />
+    <ClCompile Include="src\absGL\PointLight.cpp" />
+    <ClCompile Include="src\absGL\SpotLight.cpp" />
   </ItemGroup>
 </Project>

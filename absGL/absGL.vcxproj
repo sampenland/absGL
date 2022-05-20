@@ -178,11 +178,13 @@
     <ClCompile Include="src\absGL\InputHandler.cpp" />
     <ClCompile Include="src\absGL\Mesh.cpp" />
     <ClCompile Include="src\absGL\Model.cpp" />
+    <ClCompile Include="src\absGL\PointLight.cpp" />
     <ClCompile Include="src\absGL\Renderer.cpp" />
     <ClCompile Include="src\absGL\Shader.cpp" />
     <ClCompile Include="src\absGLpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\absGL\SpotLight.cpp" />
     <ClCompile Include="src\vendor\glad.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

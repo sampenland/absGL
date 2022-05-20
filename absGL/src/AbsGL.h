@@ -6,3 +6,5 @@
 #include "absGL/Mesh.h"
 #include "absGL/Vec3.h"
 #include "absGL/DirectionalLight.h"
+#include "absGL/PointLight.h"
+#include "absGL/SpotLight.h"

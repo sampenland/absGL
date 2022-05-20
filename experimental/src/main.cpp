@@ -19,9 +19,27 @@ int main(int argc, char** argv)
         Vec3(0.5, 0.5, 0.5)
     );
 
-    for (int i = -2; i < 2; i++)
+    PointLight* pointLight = new PointLight(
+        Vec3(0, 1, 0),
+        Vec3(.53f, .35f, .35f),
+        Vec3(.5f, .25f, .15f),
+        Vec3(0.5, 0.5, 0.5)
+    );
+
+    SpotLight* spotLight = new SpotLight(
+        Vec3(0, 1, 0),
+        Vec3(-0.3, -1, 0),
+        Vec3(.53f, .35f, .35f),
+        Vec3(.5f, .25f, .15f),
+        Vec3(0.5, 0.5, 0.5),
+        SpotLightDistances::DISTANCE_160,
+        3.f,
+        2.f
+    );
+
+    for (int i = -5; i < 5; i++)
     {
-        for (int j = -2; j < 2; j++)
+        for (int j = -5; j < 5; j++)
         {
             float x = i * 0.25f;
             float z = j * 0.25f;
@@ -38,6 +56,8 @@ int main(int argc, char** argv)
 
         renderer->StartRender();
         dirLight->UpdateShader(*defaultShader);
+        //pointLight->UpdateShader(*defaultShader);
+        //spotLight->UpdateShader(*defaultShader);
         renderer->Render();
         renderer->EndRender();
     }

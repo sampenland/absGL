@@ -1,39 +1,60 @@
 #pragma once
 #include "Core.h"
 #include "Vec3.h"
+#include "Shader.h"
 
 #include <glm/glm.hpp>
 
 namespace absGL
 {
-	class ABSGL_API PointLight
+	enum class SpotLightDistances
+	{
+		DISTANCE_7,
+		DISTANCE_13,
+		DISTANCE_20,
+		DISTANCE_32,
+		DISTANCE_50,
+		DISTANCE_65,
+		DISTANCE_100,
+		DISTANCE_160,
+		DISTANCE_200,
+		DISTANCE_325,
+		DISTANCE_600,
+		DISTANCE_3250
+	};
+
+	struct ABSGL_API SpotLight
 	{
 
 	public:
 
-		PointLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular)
-		{
-			m_Position = glm::vec3(position.X, position.Y, position.Z);
-			m_Direction = glm::vec3(direction.X, direction.Y, direction.Z);
-			m_Ambient = glm::vec3(ambient.X, ambient.Y, ambient.Z);
-			m_Diffuse = glm::vec3(diffuse.X, diffuse.Y, diffuse.Z);
-			m_Specular = glm::vec3(specular.X, specular.Y, specular.Z);
-		}
+		SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular, 
+			SpotLightDistances distance, float cutoff, float outerCutoff);
 
-	private:
+		SpotLight(Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+			float cutoff, float outerCutoff,
+			float constant, float linear, float quadratic);
 
-		glm::vec3 m_Position;
+		~SpotLight();
 
-		float constant;
-		float linear;
-		float quadratic;
+		void UpdateShader(Shader& shader);
 
-		glm::vec3 m_Ambient;
-		glm::vec3 m_Diffuse;
-		glm::vec3 m_Specular;
-		glm::vec3 m_Direction;
+		static unsigned int LightCount;
+		unsigned int Index;
 
-		float cutOff;
-		float outerCutOff;
+		glm::vec3 Position;
+
+		float Constant;
+		float Linear;
+		float Quadratic;
+
+		glm::vec3 Ambient;
+		glm::vec3 Diffuse;
+		glm::vec3 Specular;
+		glm::vec3 Direction;
+
+		float CutOff;
+		float OuterCutOff;
+		
 	};
 }
