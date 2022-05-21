@@ -45,15 +45,17 @@ namespace absGL
 		static unsigned int LightCount;
 		unsigned int Index;
 
+		glm::vec3 Position;
+
+		float Constant;
+		float Linear;
+		float Quadratic;
+
 		glm::vec3 Ambient;
 		glm::vec3 Diffuse;
 		glm::vec3 Specular;
 		glm::vec3 Direction;
 		glm::vec4 Color;
-
-		float Constant;
-		float Linear;
-		float Quadratic;
 
 		float CutOff;
 		float OuterCutOff;

@@ -34,7 +34,6 @@ namespace absGL
 		CurrentShader->SetInt("directionalLightCount", LightCount);
 					 
 		CurrentShader->SetVec4("directionalLights[" + std::to_string(Index) + "].color", Color);
-		CurrentShader->SetMat4("directionalLights[" + std::to_string(Index) + "].spaceMatrix", LightSpaceMatrix);
 					 
 		CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].direction", Direction);
 		CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].ambient", Ambient);

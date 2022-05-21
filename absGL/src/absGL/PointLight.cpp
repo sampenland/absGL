@@ -127,7 +127,6 @@ namespace absGL
 					 
 		CurrentShader->SetVec4("pointLights[" + std::to_string(Index) + "].color", Color);
 		CurrentShader->SetVec3("pointLights[" + std::to_string(Index) + "].position", Position);
-		CurrentShader->SetMat4("pointLights[" + std::to_string(Index) + "].spaceMatrix", LightSpaceMatrix);
 					 
 		CurrentShader->SetVec3("pointLights[" + std::to_string(Index) + "].ambient", Ambient);
 		CurrentShader->SetVec3("pointLights[" + std::to_string(Index) + "].diffuse", Diffuse);

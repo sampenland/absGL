@@ -39,9 +39,8 @@ namespace absGL
 		~Renderer();
 
 		void StartRender();
-		void ShadowMapRender(Light& light);
-		void RenderModels();
-		void RenderLights();
+		void ShadowMapRender(glm::vec3 lightPos);
+		void LightsRender();
 		void Render();
 		void EndRender();
 

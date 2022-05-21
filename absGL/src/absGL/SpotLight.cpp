@@ -129,7 +129,6 @@ namespace absGL
 					 
 		CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].position", Position);
 		CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].direction", Direction);
-		CurrentShader->SetMat4("spotLights[" + std::to_string(Index) + "].spaceMatrix", LightSpaceMatrix);
 					 
 		CurrentShader->SetVec4("spotLights[" + std::to_string(Index) + "].color", Color);
 					 

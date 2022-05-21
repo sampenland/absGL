@@ -31,7 +31,6 @@ struct DirLight {
     vec3 specular;
 
     vec3 color;
-    mat4 spaceMatrix;
 };
 
 struct PointLight {
@@ -46,7 +45,6 @@ struct PointLight {
     vec3 specular;
 
     vec3 color;
-    mat4 spaceMatrix;
 };
 
 struct SpotLight {
@@ -64,7 +62,6 @@ struct SpotLight {
     vec3 specular;  
     
     vec3 color;
-    mat4 spaceMatrix;
 };
 
 uniform vec3 viewPos;
@@ -76,6 +73,8 @@ uniform int spotLightCount = 0;
 uniform DirLight directionalLights[MAX_DIRECTIONAL_LIGHTS];
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
 uniform SpotLight spotLights[MAX_SPOT_LIGHTS];
+
+vec4 FragPosLightSpace[MAX_DIRECTIONAL_LIGHTS + MAX_POINT_LIGHTS + MAX_SPOT_LIGHTS];
 
 uniform Material material;
 
@@ -185,6 +184,7 @@ vec3 calculate_spot_light(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewD
 
 void main()
 {    
+    int lightCount = 0;
     float shadow = 0;
 
     vec3 norm = normalize(Normal);
@@ -195,21 +195,24 @@ void main()
     for(int i = 0; i < directionalLightCount; i++)
     {
         result += calculate_directional_light(directionalLights[i], norm, viewDir);
-        //shadow += shadow_calculation(vec3(1,1,1), light.spaceMatrix);
+        //shadow += shadow_calculation(vec3(1,1,1), FragPosLightSpace[lightCount]);
+        lightCount++;
     }
 
     // phase 2: point lights
     for(int i = 0; i < pointLightCount; i++)
     {
         result += calculate_point_light(pointLights[i], norm, FragPos, viewDir);    
-        //shadow += shadow_calculation(pointLights[i].position, light.spaceMatrix);
+        //shadow += shadow_calculation(pointLights[i].position, FragPosLightSpace[lightCount]);
+        lightCount++;
     }
 
     // phase 3: spot light
     for(int i = 0; i < spotLightCount; i++)
     {
         result += calculate_spot_light(spotLights[i], norm, FragPos, viewDir);    
-        //shadow += shadow_calculation(spotLights[i].position, light.spaceMatrix);
+        //shadow += shadow_calculation(spotLights[i].position, FragPosLightSpace[lightCount]);
+        lightCount++;
     }           
 
     FragColor = (1.0 - shadow) * vec4(result, 1.0);
