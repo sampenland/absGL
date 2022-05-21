@@ -1,13 +1,16 @@
 #include "absGLpch.h"
 #include "Renderer.h"
 #include "InputHandler.h"
+#include "Light.h"
 
 #include <iostream>
 
 namespace absGL
 {
 	Camera* Renderer::s_Camera = nullptr;
+	Shader* Renderer::s_ShadowShader = nullptr;
 	std::vector<Model*> Renderer::s_Models;
+	std::vector<Light*> Renderer::s_Lights;
 	unsigned int Renderer::s_Width = 800;
 	unsigned int Renderer::s_Height = 600;
 	float Renderer::s_DeltaTime = 0.f;
@@ -132,13 +135,47 @@ namespace absGL
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Renderer::Render()
+	void Renderer::RenderLights()
+	{
+		/*for (int i = 0; i < s_Lights.size(); i++)
+		{
+			Light& light = *s_Lights[i];
+			light.RenderShadowMap();
+		}*/
+
+		// reset viewport
+		glViewport(0, 0, s_Width, s_Height);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		for (int i = 0; i < s_Lights.size(); i++)
+		{
+			Light& light = *s_Lights[i];
+			light.UpdateShader();
+		}
+	}
+
+	void Renderer::RenderModels()
 	{
 		for (int i = 0; i < s_Models.size(); i++)
 		{
 			Model& model = *s_Models[i];
 			model.Render();
 		}
+	}
+
+	void Renderer::RenderModels(Shader* shader)
+	{
+		for (int i = 0; i < s_Models.size(); i++)
+		{
+			Model& model = *s_Models[i];
+			model.Render(shader);
+		}
+	}
+
+	void Renderer::Render()
+	{
+		RenderLights();
+		RenderModels();
 	}
 
 	void Renderer::EndRender()

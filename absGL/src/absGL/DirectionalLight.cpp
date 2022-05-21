@@ -6,7 +6,8 @@ namespace absGL
 {
 	unsigned int DirectionalLight::LightCount = 0;
 
-	DirectionalLight::DirectionalLight(Vec4 color, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular)
+	DirectionalLight::DirectionalLight(Renderer* renderer, Shader* shader, Vec4 color, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular)
+		: Light(shader, renderer, glm::vec3(1.f))
 	{
 		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
@@ -23,19 +24,19 @@ namespace absGL
 		LightCount--;
 	}
 
-	void DirectionalLight::UpdateShader(Shader& shader)
+	void DirectionalLight::UpdateShader()
 	{
-		shader.Use();
+		m_CurrentShader->Use();
 
-		shader.SetVec3("viewPos", Renderer::s_Camera->Position);
-		shader.SetInt("directionalLightCount", LightCount);
+		m_CurrentShader->SetVec3("viewPos", Renderer::s_Camera->Position);
+		m_CurrentShader->SetInt("directionalLightCount", LightCount);
 
-		shader.SetVec4("directionalLights[" + std::to_string(Index) + "].color", Color);
+		m_CurrentShader->SetVec4("directionalLights[" + std::to_string(Index) + "].color", Color);
 
-		shader.SetVec3("directionalLights[" + std::to_string(Index) + "].direction", Direction);
-		shader.SetVec3("directionalLights[" + std::to_string(Index) + "].ambient", Ambient);
-		shader.SetVec3("directionalLights[" + std::to_string(Index) + "].diffuse", Diffuse);
-		shader.SetVec3("directionalLights[" + std::to_string(Index) + "].specular", Specular);
+		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].direction", Direction);
+		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].ambient", Ambient);
+		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].diffuse", Diffuse);
+		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].specular", Specular);
 
 	}
 

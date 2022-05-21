@@ -6,9 +6,9 @@ namespace absGL
 {
 	unsigned int SpotLight::LightCount = 0;
 
-	SpotLight::SpotLight(Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+	SpotLight::SpotLight(Renderer* renderer, Shader* shader, Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 		SpotLightDistances distance, float spotSize, float softEdgeAmount)
-		: Constant(1.0f), Linear(0.7f), Quadratic(1.8f)
+		: Constant(1.0f), Linear(0.7f), Quadratic(1.8f), Light(shader, renderer, position.GetGLM())
 	{
 		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
@@ -93,11 +93,11 @@ namespace absGL
 	Spot size is size of cirle of spot light
 	soft edge amount is a small float amount of the fade amount (is added to spot size so should be small)
 	*/
-	SpotLight::SpotLight(Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+	SpotLight::SpotLight(Renderer* renderer, Shader* shader, Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 		float spotSize, float softEdgeAmount,
 		float constant, float linear, float quadratic)
-		: Constant(constant), Linear(linear), Quadratic(quadratic), 
-		CutOff(spotSize), OuterCutOff(spotSize + softEdgeAmount)
+		: Constant(constant), Linear(linear), Quadratic(quadratic),
+		CutOff(spotSize), OuterCutOff(spotSize + softEdgeAmount), Light(shader, renderer, position.GetGLM())
 	{
 		Color = glm::vec4(color.X, color.Y, color.Z, color.W);
 		Direction = glm::vec3(direction.X, direction.Y, direction.Z);
@@ -115,27 +115,27 @@ namespace absGL
 		LightCount--;
 	}
 
-	void SpotLight::UpdateShader(Shader& shader)
+	void SpotLight::UpdateShader()
 	{
-		shader.Use();
+		m_CurrentShader->Use();
 
-		shader.SetVec3("viewPos", Renderer::s_Camera->Position);
-		shader.SetInt("spotLightCount", LightCount);
+		m_CurrentShader->SetVec3("viewPos", Renderer::s_Camera->Position);
+		m_CurrentShader->SetInt("spotLightCount", LightCount);
 
-		shader.SetVec3("spotLights[" + std::to_string(Index) + "].position", Position);
-		shader.SetVec3("spotLights[" + std::to_string(Index) + "].direction", Direction);
+		m_CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].position", Position);
+		m_CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].direction", Direction);
 
-		shader.SetVec4("spotLights[" + std::to_string(Index) + "].color", Color);
+		m_CurrentShader->SetVec4("spotLights[" + std::to_string(Index) + "].color", Color);
 
-		shader.SetVec3("spotLights[" + std::to_string(Index) + "].ambient", Ambient);
-		shader.SetVec3("spotLights[" + std::to_string(Index) + "].diffuse", Diffuse);
-		shader.SetVec3("spotLights[" + std::to_string(Index) + "].specular", Specular);
-
-		shader.SetFloat("spotLights[" + std::to_string(Index) + "].constant", Constant);
-		shader.SetFloat("spotLights[" + std::to_string(Index) + "].linear", Linear);
-		shader.SetFloat("spotLights[" + std::to_string(Index) + "].quadratic", Quadratic);
-
-		shader.SetFloat("spotLights[" + std::to_string(Index) + "].cutOff", CutOff);
-		shader.SetFloat("spotLights[" + std::to_string(Index) + "].outerCutOff", OuterCutOff);
+		m_CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].ambient", Ambient);
+		m_CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].diffuse", Diffuse);
+		m_CurrentShader->SetVec3("spotLights[" + std::to_string(Index) + "].specular", Specular);
+		
+		m_CurrentShader->SetFloat("spotLights[" + std::to_string(Index) + "].constant", Constant);
+		m_CurrentShader->SetFloat("spotLights[" + std::to_string(Index) + "].linear", Linear);
+		m_CurrentShader->SetFloat("spotLights[" + std::to_string(Index) + "].quadratic", Quadratic);
+		
+		m_CurrentShader->SetFloat("spotLights[" + std::to_string(Index) + "].cutOff", CutOff);
+		m_CurrentShader->SetFloat("spotLights[" + std::to_string(Index) + "].outerCutOff", OuterCutOff);
 	}
 }

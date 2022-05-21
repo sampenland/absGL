@@ -43,6 +43,8 @@
     <ClInclude Include="src\absGL\Vertex.h" />
     <ClInclude Include="src\absGL\Texture.h" />
     <ClInclude Include="src\absGL\Vec4.h" />
+    <ClInclude Include="src\absGL\ShadowMap.h" />
+    <ClInclude Include="src\absGL\Light.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\absGL\InputHandler.cpp">
@@ -67,5 +69,7 @@
     <ClCompile Include="src\absGL\DirectionalLight.cpp" />
     <ClCompile Include="src\absGL\PointLight.cpp" />
     <ClCompile Include="src\absGL\SpotLight.cpp" />
+    <ClCompile Include="src\absGL\Light.cpp" />
+    <ClCompile Include="src\absGL\ShadowMap.cpp" />
   </ItemGroup>
 </Project>

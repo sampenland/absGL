@@ -48,6 +48,12 @@ namespace absGL
             m_Meshes[i].Render(*m_CurrentShader, *this);
     }
 
+    void Model::Render(Shader* shader)
+    {
+        for (int i = 0; i < m_Meshes.size(); i++)
+            m_Meshes[i].Render(*shader, *this);
+    }
+
     // loads a model with supported ASSIMP extensions from file and stores the resulting m_Meshes in the m_Meshes vector.
     void Model::loadModel(std::string const& path)
     {

@@ -2,6 +2,8 @@
 
 #include "Core.h"
 
+#include <glm/glm.hpp>
+
 namespace absGL
 {
 	struct ABSGL_API Vec3
@@ -14,6 +16,11 @@ namespace absGL
 			: X(x), Y(y), Z(z)
 		{
 
+		}
+
+		glm::vec3 GetGLM()
+		{
+			return glm::vec3(X, Y, Z);
 		}
 	};
 }

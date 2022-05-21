@@ -3,20 +3,22 @@
 #include "Vec3.h"
 #include "Vec4.h"
 #include "Shader.h"
+#include "Light.h"
 
 #include <glm/glm.hpp>
 
 namespace absGL
 {
 	struct ABSGL_API DirectionalLight
+		: public Light
 	{
 
 	public:
 
-		DirectionalLight(Vec4 color, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular);
+		DirectionalLight(Renderer* renderer, Shader* shader, Vec4 color, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular);
 		~DirectionalLight();
 
-		void UpdateShader(Shader& shader);
+		void UpdateShader() override;
 
 		static unsigned int LightCount;
 

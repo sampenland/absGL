@@ -138,24 +138,33 @@ vec3 calculate_spot_light(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewD
 
 void main()
 {    
-    
+    float shadow = 0;
+
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
     
     // phase 1: directional lighting
     vec3 result;
     for(int i = 0; i < directionalLightCount; i++)
+    {
         result += calculate_directional_light(directionalLights[i], norm, viewDir);
-    
+        //shadow += shadow_calculation(vec3(1,1,1), light.spaceMatrix);
+    }
 
     // phase 2: point lights
     for(int i = 0; i < pointLightCount; i++)
+    {
         result += calculate_point_light(pointLights[i], norm, FragPos, viewDir);    
+        //shadow += shadow_calculation(pointLights[i].position, light.spaceMatrix);
+    }
 
     // phase 3: spot light
     for(int i = 0; i < spotLightCount; i++)
+    {
         result += calculate_spot_light(spotLights[i], norm, FragPos, viewDir);    
-    
-    FragColor = vec4(result, 1.0);
+        //shadow += shadow_calculation(spotLights[i].position, light.spaceMatrix);
+    }           
+
+    FragColor = (1.0 - shadow) * vec4(result, 1.0);
 
 }

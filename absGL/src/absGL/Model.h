@@ -43,6 +43,7 @@ namespace absGL
 
         // draws the model, and thus all its meshes
         void Render();
+        void Render(Shader* shader);
 
         std::vector<Texture> m_Textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
         std::vector<Mesh>    m_Meshes;
