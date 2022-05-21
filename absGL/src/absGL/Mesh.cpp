@@ -69,9 +69,9 @@ namespace absGL
 
         glm::mat4 view = Renderer::s_Camera->GetViewMatrix();
         glm::mat4 projection = glm::perspective(
-            glm::radians(Renderer::s_Camera->Zoom),
-            (float)Renderer::s_Width / (float)Renderer::s_Height,
-            Renderer::s_Camera->Near, Renderer::s_Camera->Far
+            glm::radians(Renderer::s_Camera->Zoom), 
+            (float)Renderer::s_Width / (float)Renderer::s_Height, 
+            0.1f, 100.0f
         );
 
         shader.SetFloat("material.shininess", modelRef.GetShininess());

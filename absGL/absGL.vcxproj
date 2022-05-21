@@ -160,19 +160,18 @@
     <ClInclude Include="src\absGL\Core.h" />
     <ClInclude Include="src\absGL\DirectionalLight.h" />
     <ClInclude Include="src\absGL\InputHandler.h" />
-    <ClInclude Include="src\absGL\Light.h" />
     <ClInclude Include="src\absGL\Material.h" />
     <ClInclude Include="src\absGL\Mesh.h" />
     <ClInclude Include="src\absGL\Model.h" />
     <ClInclude Include="src\absGL\PointLight.h" />
     <ClInclude Include="src\absGL\Renderer.h" />
     <ClInclude Include="src\absGL\Shader.h" />
+    <ClInclude Include="src\absGLpch.h" />
     <ClInclude Include="src\absGL\SpotLight.h" />
     <ClInclude Include="src\absGL\Texture.h" />
     <ClInclude Include="src\absGL\Vec3.h" />
     <ClInclude Include="src\absGL\Vec4.h" />
     <ClInclude Include="src\absGL\Vertex.h" />
-    <ClInclude Include="src\absGLpch.h" />
     <ClInclude Include="src\vendor\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
@@ -183,10 +182,10 @@
     <ClCompile Include="src\absGL\PointLight.cpp" />
     <ClCompile Include="src\absGL\Renderer.cpp" />
     <ClCompile Include="src\absGL\Shader.cpp" />
-    <ClCompile Include="src\absGL\SpotLight.cpp" />
     <ClCompile Include="src\absGLpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\absGL\SpotLight.cpp" />
     <ClCompile Include="src\vendor\glad.c">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

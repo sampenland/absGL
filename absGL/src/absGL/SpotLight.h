@@ -3,7 +3,6 @@
 #include "Vec3.h"
 #include "Vec4.h"
 #include "Shader.h"
-#include "Light.h"
 
 #include <glm/glm.hpp>
 
@@ -26,21 +25,20 @@ namespace absGL
 	};
 
 	struct ABSGL_API SpotLight
-		: public Light
 	{
 
 	public:
 
-		SpotLight(Vec4 color, Vec3 position, Shader* shader, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+		SpotLight(Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 			SpotLightDistances distance, float cutoffDegrees, float softEdgeAmount);
 
-		SpotLight(Vec4 color, Vec3 position, Shader* shader, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
+		SpotLight(Vec4 color, Vec3 position, Vec3 direction, Vec3 ambient, Vec3 diffuse, Vec3 specular,
 			float cutoffDegrees, float softEdgeAmount,
 			float constant, float linear, float quadratic);
 
 		~SpotLight();
 
-		void UpdateShader();
+		void UpdateShader(Shader& shader);
 
 		static unsigned int LightCount;
 		unsigned int Index;
