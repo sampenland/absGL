@@ -15,6 +15,9 @@ namespace absGL
 
 	public:
 
+        inline unsigned int ShadowMapID() const { return m_ShadowMapID; }
+        inline glm::mat4 LightSpaceMatrix() const { return m_LightSpaceMatrix; }
+
         void RenderShadowMap(Light* light);
 
         ShadowMap(Renderer* render);
@@ -26,6 +29,7 @@ namespace absGL
         Renderer* m_Render = nullptr;
         unsigned int m_ShadowMapID;
         unsigned int m_DepthMapFBO;
+        glm::mat4 m_LightSpaceMatrix;
 
 	};
 }

@@ -67,6 +67,9 @@ namespace absGL
 		case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: notification"; break;
 		} std::cout << std::endl;
 		std::cout << std::endl;
+		
+		assert(false);
+
 	}
 
 	Renderer::Renderer(const std::string& title, unsigned int width, unsigned int height)
@@ -137,11 +140,11 @@ namespace absGL
 
 	void Renderer::RenderLights()
 	{
-		/*for (int i = 0; i < s_Lights.size(); i++)
+		for (int i = 0; i < s_Lights.size(); i++)
 		{
 			Light& light = *s_Lights[i];
 			light.RenderShadowMap();
-		}*/
+		}
 
 		// reset viewport
 		glViewport(0, 0, s_Width, s_Height);

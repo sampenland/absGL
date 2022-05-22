@@ -25,7 +25,7 @@ int main(int argc, char** argv)
         Vec3(0.5, 0.5, 0.5)
     );
 
-    PointLight* pointLight = new PointLight(
+    /*PointLight* pointLight = new PointLight(
         renderer,
         defaultShader,
         Vec4(1.f, 1.f, 1.f, 1.f),
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
         SpotLightDistances::DISTANCE_7,
         22.5f,
         7.5f
-    );
+    );*/
 
     const float spacing = 0.28f;
     const float mSize = 0.25f;

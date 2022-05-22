@@ -31,12 +31,19 @@ namespace absGL
 		m_CurrentShader->SetVec3("viewPos", Renderer::s_Camera->Position);
 		m_CurrentShader->SetInt("directionalLightCount", LightCount);
 
+		m_CurrentShader->SetMat4("lightSpaceMatrix", m_ShadowMap->LightSpaceMatrix());
+
 		m_CurrentShader->SetVec4("directionalLights[" + std::to_string(Index) + "].color", Color);
+		
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_ShadowMap->ShadowMapID());
+		m_CurrentShader->SetInt("directionalLights[" + std::to_string(Index) + "].shadowMap", 0);
 
 		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].direction", Direction);
 		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].ambient", Ambient);
 		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].diffuse", Diffuse);
 		m_CurrentShader->SetVec3("directionalLights[" + std::to_string(Index) + "].specular", Specular);
+		m_CurrentShader->SetInt("directionalLights[" + std::to_string(Index) + "].index", Index);
 
 	}
 

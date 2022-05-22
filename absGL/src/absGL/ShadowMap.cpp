@@ -8,7 +8,7 @@ namespace absGL
 {
     ShadowMap::ShadowMap(Renderer* render)
         : m_ShadowMapID(0), m_DepthMapFBO(0), m_ShadowWidth(1024), m_ShadowHeight(1024),
-        m_Render(render)
+        m_LightSpaceMatrix(NULL), m_Render(render)
     {
         glGenFramebuffers(1, &m_DepthMapFBO);
         glGenTextures(1, &m_ShadowMapID);
@@ -35,16 +35,15 @@ namespace absGL
     void ShadowMap::RenderShadowMap(Light* light)
     {
         glm::mat4 lightProjection, lightView;
-        glm::mat4 lightSpaceMatrix;
         float near_plane = 1.0f, far_plane = 7.5f;
 
         lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
         lightView = glm::lookAt(light->Position, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-        lightSpaceMatrix = lightProjection * lightView;
+        m_LightSpaceMatrix = lightProjection * lightView;
 
         // render scene from light's point of view
         Renderer::s_ShadowShader->Use();
-        Renderer::s_ShadowShader->SetMat4("lightSpaceMatrix", lightSpaceMatrix);
+        Renderer::s_ShadowShader->SetMat4("lightSpaceMatrix", m_LightSpaceMatrix);
 
         glViewport(0, 0, m_ShadowWidth, m_ShadowHeight);
         glBindFramebuffer(GL_FRAMEBUFFER, m_DepthMapFBO);
